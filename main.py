@@ -113,6 +113,7 @@ def get_aggregated_signal_max(model):
 class Auction(Model):
     def __init__(self, N, A, L, S, B, rate_public_mean, rate_public_sd, rate_private_mean, rate_private_sd,
                  T_mean, T_sd, delay,):
+        super().__init__()
         self.num_agents = {'Naive': N, 'Adaptive': A, 'LastMinute': L, 'Stealth': S, 'Bluff': B}
         self.global_delay = delay
         self.T = norm.rvs(loc=T_mean, scale=T_sd)
