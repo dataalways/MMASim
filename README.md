@@ -17,6 +17,7 @@ The goal of this fork is to model the advantage of a colocated block builder ove
     - To implement: i want the user to have the ability to do either
 - Two new types of agents have been added: High Latency and Low Latency (these both leverage the AdaptiveStrategy class but are initialized with different parameters)
 - For every simulation, we now calculate the expected win percentages for high and low latency builders based on the fraction of time near the end of the auction that they had the highest bid.
+- Added default delays to high latency (6s) and low latency (10s) bidding start times.
 
 ### Example Output
 
