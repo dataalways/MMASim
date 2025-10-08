@@ -20,7 +20,7 @@ The goal of this fork is to model the advantage of a colocated block builder ove
 
 ### Example Output
 
-![](./resources/output-2510-282.png)
+![](./resources/example-dynamic-bids.png)
 
 
 ## License
