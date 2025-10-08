@@ -1,49 +1,27 @@
-# MEV-Boost Auction Simulation Framework
+# MEV-Boost Auction Latency Simulation
 
-<img src="https://ethresear.ch/uploads/default/original/2X/8/8b838cb489dea1a8bbb4c093ccc0fee1e91fff0e.jpeg" alt="img" width="700"/>
+This is a fork of MEV-Boost Auction Simulation Framework originally developed by [Fei](https://twitter.com/William33203632) and [Thomas](https://twitter.com/soispoke).
 
+For expanded documentation, see [M1kuW1ll/MMASim](https://github.com/M1kuW1ll/MMASim). This repository only documents the deltas between this latency focused version of the simulation framework and the repository at the [time of the fork](https://github.com/M1kuW1ll/MMASim/commit/d1448655fb3434ae27c6eb636b0ce66cef49da66).
 
-Developed by [Fei](https://twitter.com/William33203632) and [Thomas](https://twitter.com/soispoke).
+---
 
-For details about the Game-theoretic MEV-Boost Auction Model, users are strongly recommended to check the [MMA post](https://ethresear.ch/t/game-theoretic-model-for-mev-boost-auctions-mma/16206) and [bidding war paper](https://arxiv.org/abs/2312.14510).
+The goal of this fork is to model the advantage of a colocated block builder over a transatlantic block builder.
 
-The simulation is built using the [Mesa framework](https://mesa.readthedocs.io/en/stable/) for agent-based modeling in Python. 
+### Changelog
 
-## Features
-Auction simulation: Simulates bids submitted by agents employing different strategies at each time step in the MEV-Boost auction
+- The Naive strategy builder has been changed to an enshrined builder role. This reflects the state of local block building today; building blocks with zero profit margin but being limited to transactions in the public mempool.
+- The bluffing, last minute, and stealth strategies have been removed to simplify the codebase.
+- The adaptive strategy no longer bids against itself. It now bids relative to the latest top bid from a competitor agent. 
+- The adaptive strategy now bids away a percentage of its profit instead of a fixed delta with a profit margin. 
+    - To implement: i want the user to have the ability to do either
+- Two new types of agents have been added: High Latency and Low Latency (these both leverage the AdaptiveStrategy class but are initialized with different parameters)
+- For every simulation, we now calculate the expected win percentages for high and low latency builders based on the fraction of time near the end of the auction that they had the highest bid.
 
-Multiple bidding strategies: Naive, Adaptive, Last Minute, Stealth, and Bluff strategies.
+### Example Output
 
-Data Collection and Visualization: Collects bidding data throughout the simulation and visualizes the results.
+![](./resources/output-2510-282.png)
 
-## Setup
-To run this simulation, you will need Python 3.8 (or above) installed on your system along with the following Python libraries:
-
-Mesa (<= 2.3.4), NumPy, Pandas, Matplotlib, SciPy
-
-
-## Components
-The **Player class** defines and initializes basic parameters shared by all agent types in the simulation.
-
-Each **PlayerWithStrategy class** is a subclass of the **Player class** that defines the bidding behaviors of each type of agent using the corresponding strategy.
-
-The **Auction class** manages the simulation environment, including signal updates, agent interactions, and data collection. 
-
-## Data Collection and Visualization
-Data collection is facilitated through the use of the Mesa.DataCollector function within the framework. The simulation collects data on bids, agent strategies, and signal values at each step. After the simulation ends, it visualizes the bidding dynamics over time and displays the final auction outcomes.
-
-## Parameter Values
-For setting parameter values, refer to the following useful resources:
-
-[BBP Post](https://ethresear.ch/t/empirical-analysis-of-builders-behavioral-profiles-bbps/16327)
-
-[mevboost.pics](https://mevboost.pics/)
-
-[orderflow.art](https://orderflow.art/)
-
-
-## Customization
-You can customize the simulation by adjusting the number of agents using each strategy, agent parameters when adding agents into the auction model, and the auction parameters in the Auction class initialization within the script. Or, create new strategies and use the framework for simulation.
 
 ## License
 This project is open-source and available under the MIT License.
