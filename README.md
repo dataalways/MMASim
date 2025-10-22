@@ -13,10 +13,11 @@ The goal of this fork is to model the advantage of a colocated block builder ove
 - The Naive strategy builder has been changed to an enshrined builder role. This reflects the state of local block building today; building blocks with zero profit margin but being limited to transactions in the public mempool.
 - The bluffing, last minute, and stealth strategies have been removed to simplify the codebase.
 - The adaptive strategy no longer bids against itself. It now bids relative to the latest top bid from a competitor agent. 
-- Added an option for the adaptive strategy, `dynamic_bid_values` which will bid away a percent of its profit instead of a set delta. 
+- Added dynamic bidding options instead of just set bid deltas.
 - Two new types of agents have been added: High Latency and Low Latency (these both leverage the AdaptiveStrategy class but are initialized with different parameters)
 - For every simulation, we now calculate the expected win percentages for high and low latency builders based on the fraction of time near the end of the auction that they had the highest bid.
 - Added default delays to high latency (6s) and low latency (10s) bidding start times.
+- Made the end time of the auction more realistic (randomized + around 12.5s)
 
 ### Example Output
 
